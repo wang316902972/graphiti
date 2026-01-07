@@ -4,6 +4,9 @@
 
 FROM python:3.11-slim-bookworm
 
+ENV http_proxy=http://192.168.244.188:7897
+ENV https_proxy=http://192.168.244.188:7897
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \

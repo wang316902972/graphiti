@@ -8,13 +8,13 @@ server:
   
 llm:
   provider: "openai"  # Options: openai, azure_openai, anthropic, gemini, groq
-  model: "gpt-4o-mini"
+  model: ${MODEL_NAME:gpt-4o-mini}
   max_tokens: 4096
-  
+
   providers:
     openai:
       api_key: ${OPENAI_API_KEY}
-      api_url: ${OPENAI_API_URL:https://api.openai.com/v1}
+      api_url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
       organization_id: ${OPENAI_ORGANIZATION_ID:}
       
     azure_openai:
@@ -72,9 +72,9 @@ database:
   providers:
     neo4j:
       # Use environment variable if set, otherwise use Docker service hostname
-      uri: ${NEO4J_URI:bolt://neo4j:7687}
-      username: ${NEO4J_USER:neo4j}
-      password: ${NEO4J_PASSWORD:demodemo}
+      uri: ${NEO4J_URI}
+      username: ${NEO4J_USER}
+      password: ${NEO4J_PASSWORD}
       database: ${NEO4J_DATABASE:neo4j}
       use_parallel_runtime: ${USE_PARALLEL_RUNTIME:false}
 

@@ -6,19 +6,19 @@
 # See README.md "Concurrency and LLM Provider 429 Rate Limit Errors" section for tuning guidance
 
 server:
-  transport: "http"  # Options: stdio, sse (deprecated), http
+  transport: "stdio"  # Options: stdio, sse (deprecated), http
   host: "0.0.0.0"
   port: 8000
   
 llm:
   provider: "openai"  # Options: openai, azure_openai, anthropic, gemini, groq
-  model: "gpt-4o-mini"
+  model: ${MODEL_NAME:gpt-4o}
   max_tokens: 4096
-  
+
   providers:
     openai:
       api_key: ${OPENAI_API_KEY}
-      api_url: ${OPENAI_API_URL:https://api.openai.com/v1}
+      api_url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
       organization_id: ${OPENAI_ORGANIZATION_ID:}
       
     azure_openai:
@@ -46,11 +46,11 @@ embedder:
   provider: "openai"  # Options: openai, azure_openai, gemini, voyage
   model: "text-embedding-3-small"
   dimensions: 1536
-  
+
   providers:
     openai:
       api_key: ${OPENAI_API_KEY}
-      api_url: ${OPENAI_API_URL:https://api.openai.com/v1}
+      api_url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
       organization_id: ${OPENAI_ORGANIZATION_ID:}
       
     azure_openai:
@@ -71,18 +71,13 @@ embedder:
       model: "voyage-3"
 
 database:
-  provider: "falkordb"  # Default: falkordb. Options: neo4j, falkordb
+  provider: "neo4j"  # Using Neo4j
 
   providers:
-    falkordb:
-      uri: ${FALKORDB_URI:redis://localhost:6379}
-      password: ${FALKORDB_PASSWORD:}
-      database: ${FALKORDB_DATABASE:default_db}
-
     neo4j:
-      uri: ${NEO4J_URI:bolt://localhost:7687}
+      uri: ${NEO4J_URI:bolt://192.168.244.189:7687}
       username: ${NEO4J_USER:neo4j}
-      password: ${NEO4J_PASSWORD}
+      password: ${NEO4J_PASSWORD:fiesta-small-vocal-battery-rubber-3232}
       database: ${NEO4J_DATABASE:neo4j}
       use_parallel_runtime: ${USE_PARALLEL_RUNTIME:false}
 
