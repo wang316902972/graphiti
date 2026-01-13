@@ -20,7 +20,7 @@ services:
       - GRAPHITI_GROUP_ID=${GRAPHITI_GROUP_ID:-main}
       - SEMAPHORE_LIMIT=${SEMAPHORE_LIMIT:-10}
       - CONFIG_PATH=/app/mcp/config/config.yaml
-      - PATH=${PATH}
+      - PATH=/root/.local/bin:${PATH}
       # OpenAI Configuration
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - MODEL_NAME=${MODEL_NAME}
@@ -31,7 +31,7 @@ services:
       - "8000:8000" # Expose the MCP server via HTTP transport
     # Add host access to allow container to reach external Neo4j at 192.168.244.189
     extra_hosts:
-      - "neo4j-host:192.168.244.189"
+      - "neo4j-host:192.168.136.224"
     networks:
       - graphiti-mcp-network
     command: ["uv", "run", "main.py"]
